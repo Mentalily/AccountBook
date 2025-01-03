@@ -8,7 +8,10 @@ struct Home {
       Row() {
         Text("今日已支出：")
           .fontSize(25)
+          // .layoutWeight(1)
 
+        Image($r('app.media.ic_public_share'))
+          .width(25)
       }
       .width('100%')
       .justifyContent(FlexAlign.Center)
@@ -27,6 +30,21 @@ struct Home {
         .fontWeight(FontWeight.Bold)
         .padding({bottom : 100})
       ExpenditureDetails()
+
+      Row() {
+        Image($r('app.media.ic_public_albums'))
+          .width(30)
+          .margin({left : 10})
+        Image($r('app.media.ic_public_add_norm'))
+          .width(30)
+        Image($r('app.media.ic_public_contacts'))
+          .width(30)
+          .margin({right : 10})
+      }
+      .width('100%')
+      .height(45)
+      .backgroundColor(Color.Brown)
+      .justifyContent(FlexAlign.SpaceBetween)
     }
     .height('100%')
     .width('100%')
