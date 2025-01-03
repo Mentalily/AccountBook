@@ -27,7 +27,7 @@ struct AccountBooksPreview {
       }
       // 底部导航栏
       Row() {
-        Image($r('app.media.ic_public_albums'))
+        Image($r('app.media.ic_public_albums_filled'))
           .width(30)
           .margin({left : 10})
         Image($r('app.media.ic_public_add_norm'))
@@ -38,7 +38,16 @@ struct AccountBooksPreview {
       }
       .width('100%')
       .height(45)
-      // .backgroundColor(Color.Brown)
+      .border({
+        width : {
+          top : 2,
+          bottom : 2
+        },
+        color : {
+          top : Color.Black,
+          bottom : Color.Black
+        }
+      })
       .justifyContent(FlexAlign.SpaceBetween)
     }
   }

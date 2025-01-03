@@ -1,10 +1,9 @@
 @Entry
 @Component
 struct Home {
-  @State message: string = '欢迎使用小钱管家';
-
   build() {
     Column() {
+      // 顶部导航栏
       Row() {
         Text("今日已支出：")
           .fontSize(25)
@@ -22,20 +21,16 @@ struct Home {
         bottom : 4
       })
 
+      TextInput()
 
-      Text(this.message)
-        .id('HelloUser')
-        .fontColor(Color.Orange)
-        .fontSize(40)
-        .fontWeight(FontWeight.Bold)
-        .padding({bottom : 100})
       ExpenditureDetails()
 
+      // 底部导航栏
       Row() {
         Image($r('app.media.ic_public_albums'))
           .width(30)
           .margin({left : 10})
-        Image($r('app.media.ic_public_add_norm'))
+        Image($r('app.media.ic_public_add_norm_filled'))
           .width(30)
         Image($r('app.media.ic_public_contacts'))
           .width(30)
@@ -43,13 +38,22 @@ struct Home {
       }
       .width('100%')
       .height(45)
-      .backgroundColor(Color.Brown)
+      .border({
+        width : {
+          top : 2,
+          bottom : 2
+        },
+        color : {
+          top : Color.Black,
+          bottom : Color.Black
+        }
+      })
       .justifyContent(FlexAlign.SpaceBetween)
     }
     .height('100%')
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)
-    .backgroundColor(Color.Pink)
+    // .backgroundColor(Color.Pink)
   }
 }
 
