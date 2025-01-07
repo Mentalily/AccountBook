@@ -11,16 +11,26 @@ struct AccountBooksPreview {
       // 顶部导航栏
       Row() {
         Image($r('app.media.ic_public_arrow_left'))
-          .width(30)
-          .margin({left : 10})
+          .width($r('app.float.arrow_left_width'))
+          .margin({left : $r('app.float.arrow_left_margin')})
         Text("账本总览")
-          .fontSize(25)
+          .fontSize($r('app.float.top_navigation_text_fontsize'))
         Image($r('app.media.ic_public_share'))
-          .width(30)
-          .margin({right : 10})
+          .width($r('app.float.navigation_icon_width'))
+          .margin({right : $r('app.float.top_navigation_margin')})
       }
-      .height(42)
       .width('100%')
+      .height($r('app.float.top_navigation_bar_height'))
+      .border({
+        width : {
+          top : $r('app.float.top_navigation_bar_border_width'),
+          bottom : $r('app.float.top_navigation_bar_border_width')
+        },
+        color : {
+          top : Color.Black,
+          bottom : Color.Black
+        }
+      })
       .justifyContent(FlexAlign.SpaceBetween)
 
       // 涉及到路由传参的知识点

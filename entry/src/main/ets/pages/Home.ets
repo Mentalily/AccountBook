@@ -3,21 +3,20 @@ import { router } from '@kit.ArkUI'
 @Entry
 @Component
 struct Home {
+  @State sum : number = 0
   build() {
     Column() {
       // 顶部导航栏
       Row() {
-        Text("今日已支出：")
-          .fontSize(25)
-        Blank()
+        Text("今日已支出：" + this.sum)
+          .fontSize($r('app.float.top_navigation_text_fontsize'))
+          .margin({left : $r('app.float.top_navigation_margin')})
         Image($r('app.media.ic_public_share'))
-          .width(25)
+          .width($r('app.float.navigation_icon_width'))
+          .margin({right : $r('app.float.top_navigation_margin')})
       }
       .width('100%')
       .height($r('app.float.top_navigation_bar_height'))
-      .alignItems(VerticalAlign.Center)
-      // .justifyContent(FlexAlign.Center)
-      // .backgroundColor(Color.Gray)
       .border({
         width : {
           top : $r('app.float.top_navigation_bar_border_width'),
@@ -28,10 +27,7 @@ struct Home {
           bottom : Color.Black
         }
       })
-      // .padding({
-      //   top : 4,
-      //   bottom : 4
-      // })
+      .justifyContent(FlexAlign.SpaceBetween)
 
       TextInput()
 
