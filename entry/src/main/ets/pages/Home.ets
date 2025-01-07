@@ -11,6 +11,7 @@ struct Home {
         Text("今日已支出：" + this.sum)
           .fontSize($r('app.float.top_navigation_text_fontsize'))
           .margin({left : $r('app.float.top_navigation_margin')})
+          .layoutWeight(1)
         Image($r('app.media.ic_public_share'))
           .width($r('app.float.navigation_icon_width'))
           .margin({right : $r('app.float.top_navigation_margin')})
@@ -27,11 +28,64 @@ struct Home {
           bottom : Color.Black
         }
       })
-      .justifyContent(FlexAlign.SpaceBetween)
 
-      TextInput()
+      // 数据显示区
+      Column(){
 
-      ExpenditureDetails()
+      }
+      .backgroundColor(Color.Gray)
+      // .height('40%')
+      .width('100%')
+      .layoutWeight(4)
+
+      Column(){
+        // 输入框
+        Row(){
+          Image($r('app.media.ic_public_input_voice'))
+            .width(40)
+            .margin({
+              top : 5,
+              bottom : 5
+            })
+
+          TextInput({
+            placeholder : "记账区"
+          })
+            .height(50)
+            .backgroundColor(Color.White)
+            .borderRadius(0)
+            .border({
+              width : {
+                left : 2,
+                right : 2
+              }
+            })
+            .layoutWeight(1)
+          Image($r('app.media.ic_public_more_list'))
+            .width(40)
+            .margin({
+              top : 5,
+              bottom : 5
+            })
+
+        }
+        .width('90%')
+        .height(50)
+        .justifyContent(FlexAlign.SpaceBetween)
+        .border({
+          width : 3
+        })
+        .borderRadius(10)
+
+        Scroll(){
+          // ExpenditureDetails()
+          // ExpenditureDetails()
+          // ExpenditureDetails()
+        }
+      }
+      .layoutWeight(5)
+      .width('100%')
+      .padding(10)
 
       // 底部导航栏
       Row() {
@@ -47,6 +101,7 @@ struct Home {
         // 明细区
         Image($r('app.media.ic_public_add_norm_filled'))
           .width($r('app.float.navigation_icon_width'))
+          .fillColor($r('app.color.add_fill'))
         // 资产区
         Image($r('app.media.ic_public_contacts'))
           .width($r('app.float.navigation_icon_width'))
@@ -101,5 +156,6 @@ struct ExpenditureDetails {
       left : 10,
       right : 10
     })
+    .height(30)
   }
 }

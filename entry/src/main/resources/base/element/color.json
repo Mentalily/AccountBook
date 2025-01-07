@@ -3,6 +3,18 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "accountbook_fill",
+      "value": "#fff1461b"
+    },
+    {
+      "name": "add_fill",
+      "value": "#446CB5"
+    },
+    {
+      "name": "user_fill",
+      "value": "#ff4f8546"
     }
   ]
 }
