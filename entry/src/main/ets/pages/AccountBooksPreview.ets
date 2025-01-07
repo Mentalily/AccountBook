@@ -1,11 +1,14 @@
 /*
  * 账本总览
  */
-@Preview
+
+import { router } from '@kit.ArkUI'
+@Entry
 @Component
 struct AccountBooksPreview {
   build() {
     Column() {
+      // 顶部导航栏
       Row() {
         Image($r('app.media.ic_public_arrow_left'))
           .width(30)
@@ -20,6 +23,7 @@ struct AccountBooksPreview {
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
 
+      // 涉及到路由传参的知识点
       Row() {
         Stack() {
         
@@ -27,21 +31,34 @@ struct AccountBooksPreview {
       }
       // 底部导航栏
       Row() {
+        // 账本区
         Image($r('app.media.ic_public_albums_filled'))
-          .width(30)
-          .margin({left : 10})
+          .width($r('app.float.navigation_icon_width'))
+          .margin({left : $r('app.float.bottom_navigation_margin')})
+        // 明细区
         Image($r('app.media.ic_public_add_norm'))
-          .width(30)
+          .width($r('app.float.navigation_icon_width'))
+          .onClick(()=>{
+            router.pushUrl({
+              url : 'pages/Home'
+            })
+          })
+        // 资产区
         Image($r('app.media.ic_public_contacts'))
-          .width(30)
-          .margin({right : 10})
+          .width($r('app.float.navigation_icon_width'))
+          .margin({right : $r('app.float.bottom_navigation_margin')})
+          .onClick(()=>{
+            router.pushUrl({
+              url : 'pages/User'
+            })
+          })
       }
       .width('100%')
-      .height(45)
+      .height($r('app.float.bottom_navigation_bar_height'))
       .border({
         width : {
-          top : 2,
-          bottom : 2
+          top : $r('app.float.bottom_navigation_bar_border_width'),
+          bottom : $r('app.float.bottom_navigation_bar_border_width')
         },
         color : {
           top : Color.Black,
@@ -50,5 +67,8 @@ struct AccountBooksPreview {
       })
       .justifyContent(FlexAlign.SpaceBetween)
     }
+    .height('100%')
+    .width('100%')
+    .justifyContent(FlexAlign.SpaceBetween)
   }
 }

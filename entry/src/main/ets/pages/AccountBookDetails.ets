@@ -1,7 +1,7 @@
 /**
  * 单个账本收支明细显示
  * */
-@Preview
+@Entry
 @Component
 struct AccountBookDetails {
   build() {

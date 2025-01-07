@@ -1,5 +1,9 @@
 {
   "src": [
-    "pages/Home"
+    "pages/Home",
+    "pages/AccountBooksPreview",
+    "pages/AccountBookDetails",
+    "pages/User",
+    "pages/Login"
   ]
 }

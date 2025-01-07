@@ -1,0 +1,28 @@
+{
+  "float": [
+    {
+      "name": "top_navigation_bar_height",
+      "value": "42"
+    },
+    {
+      "name": "top_navigation_bar_border_width",
+      "value": "2"
+    },
+    {
+      "name": "bottom_navigation_bar_height",
+      "value": "45"
+    },
+    {
+      "name": "bottom_navigation_bar_border_width",
+      "value": "2"
+    },
+    {
+      "name": "bottom_navigation_margin",
+      "value": "10"
+    },
+    {
+      "name": "navigation_icon_width",
+      "value": "30"
+    }
+  ]
+}
