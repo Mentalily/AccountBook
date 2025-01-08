@@ -28,6 +28,7 @@ struct Home {
           bottom : Color.Black
         }
       })
+      .backgroundColor(Color.White)
 
       // 数据显示区
       Column(){
@@ -49,7 +50,7 @@ struct Home {
             })
 
           TextInput({
-            placeholder : "记账区"
+            placeholder : "#标签[space]金额"
           })
             .height(50)
             .backgroundColor(Color.White)
@@ -78,10 +79,12 @@ struct Home {
         .borderRadius(10)
 
         Scroll(){
-          // ExpenditureDetails()
-          // ExpenditureDetails()
-          // ExpenditureDetails()
+          Column(){
+            ExpenditureDetails()
+
+          }
         }
+        .scrollBar(BarState.Off)
       }
       .layoutWeight(5)
       .width('100%')
@@ -125,7 +128,7 @@ struct Home {
         }
       })
       .justifyContent(FlexAlign.SpaceBetween)
-
+      .backgroundColor(Color.White)
     }
     .height('100%')
     .width('100%')
@@ -133,29 +136,48 @@ struct Home {
   }
 }
 
-// @Preview
+@Preview
 @Component
 struct ExpenditureDetails {
   build() {
     Row() {
       Text("早餐")
-        .fontSize(25)
+        .fontSize(20)
       Row() {
         Text("#生活")
-          .fontSize(25)
-          .margin({left : 15})
+          .fontSize(20)
+          .margin({right : 15})
           .fontColor(Color.Orange)
         Text("-9.0")
-          .fontSize(25)
+          .fontSize(20)
           .fontColor(Color.Red)
       }
     }
-    .width('100%')
+    .height(40)
+    .width('90%')
+    .border({
+      width : {
+        bottom : 2
+      }
+    })
     .justifyContent(FlexAlign.SpaceBetween)
     .padding({
       left : 10,
       right : 10
     })
-    .height(30)
+  }
+}
+
+class ExpenditureDetailsClass {
+  id: string = "";
+  content: string = "";
+  tag: string = "";
+  expenditure: number = 0;
+
+  constructor(id: string, content: string, tag: string, expenditure: number) {
+    this.id = id;
+    this.content = content;
+    this.tag = tag;
+    this.expenditure = expenditure;
   }
 }

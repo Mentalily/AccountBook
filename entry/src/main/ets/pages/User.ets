@@ -7,6 +7,8 @@ import { router } from '@kit.ArkUI'
 @Component
 struct User {
   @State userName : string = "admin"
+  @State sumAsset : number = 0
+  @State countAsset : number = 0
   build() {
     Column() {
       // 顶部导航栏
@@ -35,36 +37,72 @@ struct User {
       })
       .justifyContent(FlexAlign.SpaceBetween)
 
-      // 头像、壁纸
       Column() {
-        Text("今天你记账了吗？")
-          .fontSize(40)
-            // .backgroundColor(Color.Brown)
-          .width('100%')
-        Image($r('app.media.ic_user_portrait'))
-          .width(50)
-      }
-      .backgroundColor(Color.Gray)
-      .height(100)
-      .width('100%')
-      .layoutWeight(1)
-      // .alignItems(HorizontalAlign.End)
+        // 头像、壁纸
+        Column() {
+          Text("今天你记账了吗？")
+            .fontSize(38)
+            .textAlign(TextAlign.Center)
+            .width('100%')
+            .height(70)
+            .border({
+              width : {
+                bottom : 2
+              }
+            })
+            .backgroundColor(Color.White)
 
-      // 正文
-      Column()
-      {
-        Row(){
+          Image($r('app.media.userPic'))
+            .width(50)
+            .border({
+              width : 1
+            })
+            .borderRadius(25)
+            .margin({
+              top : -15
+            })
+        }
+        .width('100%')
+        .height(100)
+        .margin({
+          bottom : 10
+        })
+
+        // 正文
+        Scroll() {
+          Column()
+          {
+            // 总资产
+            Row(){
+              Text("总资产：" + this.sumAsset)
+                // .fontColor(Color.White)
+                .fontSize(23)
+                .fontWeight(FontWeight.Bold)
+                .layoutWeight(1)
+              Image($r('app.media.ic_public_add_norm'))
+                .width(28)
+                // .fillColor(Color.White)
+            }
+            .height(50)
+            .width('100%')
+            // .backgroundColor(Color.Blue)
+            .padding({
+              left : 15,
+              right : 15
+            })
+            AssetDetails()
+
+          }
+
+          .width('100%')
 
         }
-        .height(10)
-        // 资产明细
-        Scroll()
-        // AssetDetails()
+        .scrollBar(BarState.Off)
       }
-      .layoutWeight(9)
-      .width('100%')
-      // .alignItems(HorizontalAlign.Center)
-      // .justifyContent(FlexAlign.Center)
+      .layoutWeight(1)
+      .backgroundColor(Color.White)
+
+
 
       // 底部导航栏
       Row() {
@@ -104,7 +142,7 @@ struct User {
         }
       })
       .justifyContent(FlexAlign.SpaceBetween)
-
+      .backgroundColor(Color.White)
     }
     .height('100%')
     .width('100%')
@@ -112,11 +150,42 @@ struct User {
   }
 }
 
+@Preview
 @Component
 struct AssetDetails {
   build() {
     Row() {
-
+      Text("银行卡1")
+        .fontSize($r('app.float.item_font_size'))
+      Text("6000")
+        .fontSize($r('app.float.item_font_size'))
     }
+    .height($r('app.float.item_height'))
+    .width('90%')
+    .borderRadius($r('app.float.item_border_radius'))
+    .border({
+      width : $r('app.float.item_border_width')
+    })
+    .padding({
+      left : $r('app.float.item_padding'),
+      right : $r('app.float.item_padding')
+    })
+    .justifyContent(FlexAlign.SpaceBetween)
+    .backgroundColor(Color.White)
+    .margin({
+      bottom : 10
+    })
+  }
+}
+
+class AssetDetailsClass {
+  id : string = "";
+  name : string = "";
+  num : number = 0;
+
+  constructor(id: string, name: string, num: number) {
+    this.id = id;
+    this.name = name;
+    this.num = num;
   }
 }
