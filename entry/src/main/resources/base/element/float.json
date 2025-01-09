@@ -59,6 +59,22 @@
     {
       "name": "item_font_size",
       "value": "23"
+    },
+    {
+      "name": "title_font_size",
+      "value": "23"
+    },
+    {
+      "name": "add_icon_width",
+      "value": "28"
+    },
+    {
+      "name": "title_height",
+      "value": "50"
+    },
+    {
+      "name": "title_padding",
+      "value": "15"
     }
   ]
 }

@@ -82,17 +82,17 @@ struct User {
             // 总资产
             Row(){
               Text("总资产：" + this.sumAsset)
-                .fontSize(23)
+                .fontSize($r('app.float.title_font_size'))
                 .fontWeight(FontWeight.Bold)
                 .layoutWeight(1)
               Image($r('app.media.ic_public_add_norm'))
-                .width(28)
+                .width($r('app.float.add_icon_width'))
             }
-            .height(50)
+            .height($r('app.float.title_height'))
             .width('100%')
             .padding({
-              left : 15,
-              right : 15
+              left : $r('app.float.title_padding'),
+              right : $r('app.float.title_padding')
             })
             AssetDetails()
 

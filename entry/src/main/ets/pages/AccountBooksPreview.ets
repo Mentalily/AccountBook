@@ -40,57 +40,80 @@ struct AccountBooksPreview {
 
       // 涉及到路由传参的知识点
       // 数据显示区
-      Column(){
-
+      Column({space : 20}){
+        Text("这里其实有个饼图，但是还没来得及实现orz")
+          .fontSize(20)
+          .lineHeight(25)
+          .textAlign(TextAlign.Center)
+        Text("原计划这里展现每个账本的支出占比")
+          .fontSize(20)
       }
-      .backgroundColor(Color.Gray)
-      // .height('40%')
+      .justifyContent(FlexAlign.Center)
+      .border({
+        width : {
+          bottom : 2
+        }
+      })
       .width('100%')
       .layoutWeight(4)
 
       Column(){
         // 输入框
-        Row(){
-          Image($r('app.media.ic_public_input_voice'))
-            .width(40)
-            .margin({
-              top : 5,
-              bottom : 5
-            })
+        // Row(){
+        //   Image($r('app.media.ic_public_input_voice'))
+        //     .width(40)
+        //     .margin({
+        //       top : 5,
+        //       bottom : 5
+        //     })
+        //
+        //   TextInput({
+        //     placeholder : "记账区"
+        //   })
+        //     .height(50)
+        //     .backgroundColor(Color.White)
+        //     .borderRadius(0)
+        //     .border({
+        //       width : {
+        //         left : 2,
+        //         right : 2
+        //       }
+        //     })
+        //     .layoutWeight(1)
+        //   Image($r('app.media.ic_public_more_list'))
+        //     .width(40)
+        //     .margin({
+        //       top : 5,
+        //       bottom : 5
+        //     })
+        //
+        // }
+        // .width('90%')
+        // .height(50)
+        // .justifyContent(FlexAlign.SpaceBetween)
+        // .border({
+        //   width : 3
+        // })
+        // .borderRadius(10)
 
-          TextInput({
-            placeholder : "记账区"
-          })
-            .height(50)
-            .backgroundColor(Color.White)
-            .borderRadius(0)
-            .border({
-              width : {
-                left : 2,
-                right : 2
-              }
-            })
-            .layoutWeight(1)
-          Image($r('app.media.ic_public_more_list'))
-            .width(40)
-            .margin({
-              top : 5,
-              bottom : 5
-            })
-
+        Row() {
+          Text('账本：')
+            .fontSize($r('app.float.title_font_size'))
+            .fontWeight(FontWeight.Bold)
+          Image($r('app.media.ic_public_add_norm'))
+            .width($r('app.float.add_icon_width'))
         }
-        .width('90%')
-        .height(50)
+        .width('100%')
+        .height($r('app.float.title_height'))
         .justifyContent(FlexAlign.SpaceBetween)
-        .border({
-          width : 3
+        .padding({
+          left : $r('app.float.title_padding'),
+          right : $r('app.float.title_padding')
         })
-        .borderRadius(10)
-
       }
       .layoutWeight(5)
       .width('100%')
-      .padding(10)
+      // .padding(10)
 
 
       // 底部导航栏
