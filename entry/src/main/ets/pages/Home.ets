@@ -1,14 +1,63 @@
-import { router } from '@kit.ArkUI'
+/*
+ * 本页需要完成的是环形图的绘制、
+ * 参数传入结构体
+ * 数据存储到后端
+ * 正确渲染明细*/
+
+/*
+ * 主要是数据的传递、
+ * 数据的存储、
+ * 点击交互
+ * 环形图的绘制*/
+
+import { AlertDialog, router } from '@kit.ArkUI'
+
+interface TodayExpensesDetails {
+  detail: string;
+  tag: string;
+  expense: number;
+}
 
 @Entry
 @Component
 struct Home {
-  @State sum : number = 0
+  @State totalExpense : number = 0
+  @State inputText : string = ""
+  @State todayExpenses : Array<TodayExpensesDetails> = []
+  @State alertMessage: string = "" // 弹窗内容
+  @State showAlert: boolean = false // 控制弹窗显示
+
+  // 输入文本数据处理
+  handleInput() {
+    // 解析字符串
+    const match = this.inputText.match(/^(.*)#(.*) (\-?\d+)$/)
+    if (!match) {
+      console.log('erro')
+      this.alertMessage = "输入格式请参看输入框提示😊"
+      this.showAlert = true
+      return;
+    }
+    // 提取解析结果
+    const detail: string = match[1].trim();
+    const tag: string = match[2].trim();
+    const expense: number = parseFloat(match[3]);
+
+    if (isNaN(expense)) {
+      this.alertMessage = "真的没有输错金额吗😣"
+      this.showAlert = true
+      return;
+    }
+
+    this.totalExpense += expense;
+    this.todayExpenses.push({detail, tag, expense})
+    this.inputText = ""
+  }
+
   build() {
     Column() {
       // 顶部导航栏
-      Row() {
-        Text("今日已支出：" + this.sum)
+      Row(){
+        Text("今日已支出：" + this.totalExpense)
           .fontSize($r('app.float.top_navigation_text_fontsize'))
           .margin({left : $r('app.float.top_navigation_margin')})
           .layoutWeight(1)
@@ -31,44 +80,46 @@ struct Home {
       .backgroundColor(Color.White)
 
       // 数据显示区
-      Column(){
-
-      }
-      .backgroundColor(Color.Gray)
-      // .height('40%')
-      .width('100%')
-      .layoutWeight(4)
+      BudgetRing()
+        // .width('100%')
+        .layoutWeight(4)
 
       Column(){
         // 输入框
         Row(){
-          Image($r('app.media.ic_public_input_voice'))
-            .width(40)
+          Image($r('app.media.ic_public_more_list'))
+            .width(30)
             .margin({
               top : 5,
               bottom : 5
             })
 
           TextInput({
-            placeholder : "#标签[space]金额"
+            placeholder : "明细#标签[space]金额",
+            text : this.inputText
           })
+            .onChange((text : string) => {
+              this.inputText = text
+            })
             .height(50)
             .backgroundColor(Color.White)
             .borderRadius(0)
             .border({
               width : {
-                left : 2,
-                right : 2
+                left : 3,
+                right : 3
               }
             })
             .layoutWeight(1)
-          Image($r('app.media.ic_public_more_list'))
-            .width(40)
+          Image($r('app.media.ic_public_ok_filled'))
+            .width(30)
             .margin({
               top : 5,
               bottom : 5
             })
-
+            .onClick(() => {
+              this.handleInput()
+            })
         }
         .width('90%')
         .height(50)
@@ -77,7 +128,21 @@ struct Home {
           width : 3
         })
         .borderRadius(10)
+        if (this.showAlert) {
+          AlertDialog({
+            primaryTitle : "等等好像有点不对劲",
+            content : this.alertMessage,
+            primaryButton : {
+              value : "Get!👌",
+              action : ()=>{
+                this.showAlert = false;
+                this.inputText = ""
+              }
+            }
+          })
+        }
 
+        // 明细显示
         Scroll(){
           Column(){
             ExpenditureDetails()
@@ -134,6 +199,7 @@ struct Home {
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)
   }
+
 }
 
 @Preview
@@ -179,5 +245,33 @@ class ExpenditureDetailsClass {
     this.content = content;
     this.tag = tag;
     this.expenditure = expenditure;
+  }
+}
+
+@Component
+struct BudgetRing {
+  @Prop budget : number = 0;
+  @Prop expenditure : number = 0;
+  @State totalExpenditure : number = 0
+  build() {
+    Stack(){
+      Canvas()// 绘制环形图
+        .width('100%')
+        .height('100%')
+      Image($r('app.media.ic_files_presentation_drive'))
+        .height(20)
+        .width(20)
+        .align(Alignment.TopStart)
+        .padding({
+          top : 0,
+          left : 0
+        })
+        .onClick(()=>{
+          // 弹出输入框设置预算
+        })
+    }
+    .width('100%')
+    .backgroundColor(Color.Gray)
+    // .height()
   }
 }

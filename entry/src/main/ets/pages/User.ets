@@ -1,5 +1,9 @@
 /**
- * 用户页面显示
+ * 本页也需要完成的是
+ * 数据存储
+ * 数据传递
+ * 点击交互
+ * 页面渲染倒是还好
  */
 import { router } from '@kit.ArkUI'
 
@@ -17,6 +21,9 @@ struct User {
           .width($r('app.float.arrow_left_width'))
           .margin({
             left : $r('app.float.arrow_left_margin')
+          })
+          .onClick(()=>{
+            router.back()
           })
         Text("你好，"+this.userName)
           .fontSize($r('app.float.top_navigation_text_fontsize'))
@@ -75,17 +82,14 @@ struct User {
             // 总资产
             Row(){
               Text("总资产：" + this.sumAsset)
-                // .fontColor(Color.White)
                 .fontSize(23)
                 .fontWeight(FontWeight.Bold)
                 .layoutWeight(1)
               Image($r('app.media.ic_public_add_norm'))
                 .width(28)
-                // .fillColor(Color.White)
             }
             .height(50)
             .width('100%')
-            // .backgroundColor(Color.Blue)
             .padding({
               left : 15,
               right : 15

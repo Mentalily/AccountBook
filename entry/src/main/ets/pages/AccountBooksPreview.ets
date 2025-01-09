@@ -1,5 +1,6 @@
 /*
- * 账本总览
+ * 本页需要完成的是：
+ * 数据显示、柱形图的绘制
  */
 
 import { router } from '@kit.ArkUI'
@@ -13,6 +14,9 @@ struct AccountBooksPreview {
         Image($r('app.media.ic_public_arrow_left'))
           .width($r('app.float.arrow_left_width'))
           .margin({left : $r('app.float.arrow_left_margin')})
+          .onClick(()=>{
+            router.back()
+          })
         Text("账本总览")
           .fontSize($r('app.float.top_navigation_text_fontsize'))
         Image($r('app.media.ic_public_share'))
@@ -32,6 +36,7 @@ struct AccountBooksPreview {
         }
       })
       .justifyContent(FlexAlign.SpaceBetween)
+      .backgroundColor(Color.White)
 
       // 涉及到路由传参的知识点
       // 数据显示区
@@ -82,11 +87,6 @@ struct AccountBooksPreview {
         })
         .borderRadius(10)
 
-        Scroll(){
-          // ExpenditureDetails()
-          // ExpenditureDetails()
-          // ExpenditureDetails()
-        }
       }
       .layoutWeight(5)
       .width('100%')
@@ -135,5 +135,43 @@ struct AccountBooksPreview {
     .height('100%')
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)
+    .backgroundColor(Color.White)
+  }
+}
+
+// 利用Navigation进入账本详情页
+@Preview
+@Component
+struct AccountBook {
+  build() {
+    Row() {
+      Image($r('app.media.app_icon'))
+        .width(30)
+        .borderRadius(15)
+      Text('账本1')
+        .fontSize($r('app.float.item_font_size'))
+    }
+    .width('90%')
+    .height($r('app.float.item_height'))
+    .backgroundColor(Color.White)
+    .border({
+      width : $r('app.float.item_border_width')
+    })
+    .borderRadius($r('app.float.item_border_radius'))
+    .padding({
+      left : $r('app.float.item_padding'),
+      right : $r('app.float.item_padding')
+    })
+    .justifyContent(FlexAlign.SpaceBetween)
+  }
+}
+
+@Component
+struct DataShowPie {
+  build() {
+    Column(){
+
+    }
+    // .height()
   }
 }
