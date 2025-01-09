@@ -15,6 +15,14 @@
     {
       "name": "user_fill",
       "value": "#ff4f8546"
+    },
+    {
+      "name": "button_ok",
+      "value": "#ff0aa201"
+    },
+    {
+      "name": "button_cancel",
+      "value": "#fff10b0b"
     }
   ]
 }

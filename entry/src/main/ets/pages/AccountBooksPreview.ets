@@ -3,10 +3,36 @@
  * 数据显示、柱形图的绘制
  */
 
-import { router } from '@kit.ArkUI'
+import { CustomContentDialog, router } from '@kit.ArkUI'
 @Entry
 @Component
 struct AccountBooksPreview {
+
+  @Builder
+  buildContent() : void {
+    Column({space : 10}) {
+      TextInput({
+        placeholder : "账本名字，也是tag"
+      })
+      Row() {
+        Button("Cancel")
+          .width('30%')
+          .backgroundColor($r('app.color.button_cancel'))
+        Button("Confirm")
+          .width('50%')
+          .backgroundColor($r('app.color.button_ok'))
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.SpaceBetween)
+    }
+  }
+
+  dialogController: CustomDialogController = new CustomDialogController({
+    builder: CustomContentDialog({
+      contentBuilder: ()=>this.buildContent()
+    })
+  })
+
   build() {
     Column() {
       // 顶部导航栏
@@ -58,50 +84,15 @@ struct AccountBooksPreview {
       .layoutWeight(4)
 
       Column(){
-        // 输入框
-        // Row(){
-        //   Image($r('app.media.ic_public_input_voice'))
-        //     .width(40)
-        //     .margin({
-        //       top : 5,
-        //       bottom : 5
-        //     })
-        //
-        //   TextInput({
-        //     placeholder : "记账区"
-        //   })
-        //     .height(50)
-        //     .backgroundColor(Color.White)
-        //     .borderRadius(0)
-        //     .border({
-        //       width : {
-        //         left : 2,
-        //         right : 2
-        //       }
-        //     })
-        //     .layoutWeight(1)
-        //   Image($r('app.media.ic_public_more_list'))
-        //     .width(40)
-        //     .margin({
-        //       top : 5,
-        //       bottom : 5
-        //     })
-        //
-        // }
-        // .width('90%')
-        // .height(50)
-        // .justifyContent(FlexAlign.SpaceBetween)
-        // .border({
-        //   width : 3
-        // })
-        // .borderRadius(10)
-
         Row() {
           Text('账本：')
             .fontSize($r('app.float.title_font_size'))
             .fontWeight(FontWeight.Bold)
           Image($r('app.media.ic_public_add_norm'))
             .width($r('app.float.add_icon_width'))
+            .onClick(()=>{
+              this.dialogController.open()
+            })
         }
         .width('100%')
         .height($r('app.float.title_height'))
@@ -113,7 +104,6 @@ struct AccountBooksPreview {
       }
       .layoutWeight(5)
       .width('100%')
-      // .padding(10)
 
 
       // 底部导航栏

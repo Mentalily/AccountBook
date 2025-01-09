@@ -5,7 +5,7 @@
  * 点击交互
  * 页面渲染倒是还好
  */
-import { router } from '@kit.ArkUI'
+import { AlertDialog, CustomContentDialog, router } from '@kit.ArkUI'
 
 @Entry
 @Component
@@ -13,6 +13,38 @@ struct User {
   @State userName : string = "admin"
   @State sumAsset : number = 0
   @State countAsset : number = 0
+  @State showDialog : boolean = false
+  @State inputText : string = ''
+  @State alertMessage : string = ""
+  @State showAlert : boolean = false
+
+  @Builder
+  buildContent() : void {
+    Column({space : 10}) {
+      TextInput({
+        placeholder : "资产[space]金额"
+      })
+
+    }
+  }
+
+
+
+  dialogController: CustomDialogController = new CustomDialogController({
+    builder: CustomContentDialog({
+      contentBuilder: ()=> {
+        this.buildContent()
+      },
+      buttons: [{value : "Cancel", buttonStyle: ButtonStyleMode.NORMAL, action: ()=>{
+        this.inputText = ''
+      }}, {value : "Confirm", buttonStyle: ButtonStyleMode.EMPHASIZED, action: () => {
+        // handleInput()
+      }}]
+    })
+  })
+
+
+
   build() {
     Column() {
       // 顶部导航栏
@@ -87,6 +119,9 @@ struct User {
                 .layoutWeight(1)
               Image($r('app.media.ic_public_add_norm'))
                 .width($r('app.float.add_icon_width'))
+                .onClick(()=>{
+                  this.dialogController.open()
+                })
             }
             .height($r('app.float.title_height'))
             .width('100%')
@@ -94,18 +129,20 @@ struct User {
               left : $r('app.float.title_padding'),
               right : $r('app.float.title_padding')
             })
+
+            // if (this.showDialog) {
+            //
+            // }
+
             AssetDetails()
 
           }
-
           .width('100%')
-
         }
         .scrollBar(BarState.Off)
       }
       .layoutWeight(1)
       .backgroundColor(Color.White)
-
 
 
       // 底部导航栏
@@ -193,3 +230,20 @@ class AssetDetailsClass {
     this.num = num;
   }
 }
+
+// Row() {
+//   Button("Cancel")
+//     .width('30%')
+//     .backgroundColor($r('app.color.button_cancel'))
+//     .onClick(()=>{
+//
+//     })
+//   Button("Confirm")
+//     .width('50%')
+//     .backgroundColor($r('app.color.button_ok'))
+//     .onClick(()=>{
+//
+//     })
+// }
+// .width('100%')
+// .justifyContent(FlexAlign.SpaceBetween)

@@ -80,8 +80,21 @@ struct Home {
       .backgroundColor(Color.White)
 
       // 数据显示区
-      CanvasBudgetRing()
-        .layoutWeight(4)
+      // CanvasBudgetRing()
+      //   .layoutWeight(4)
+      Column(){
+        Text("这里预期是环形图，呈现预算和开销情况，同时允许设置预算，但也没来得及实现orz")
+          .fontSize(20)
+          .textAlign(TextAlign.Center)
+          .lineHeight(50)
+      }
+      .justifyContent(FlexAlign.Center)
+      .layoutWeight(4)
+      .padding(10)
+      .borderWidth({
+        bottom : 3
+      })
+      .borderStyle(BorderStyle.Dotted)
 
       Column(){
         // 输入框
@@ -247,8 +260,6 @@ class ExpenditureDetailsClass {
   }
 }
 
-
-
 @Component
 struct CanvasExample {
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
@@ -315,8 +326,6 @@ struct CanvasBudgetRing {
     .width('100%')
   }
 }
-
-
 
 // @Preview
 // @Component
