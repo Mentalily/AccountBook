@@ -45,15 +45,39 @@ struct AccountBookDetails {
       Scroll() {
         Column() {
           DataShowBar()
+            .layoutWeight(4)
+
           Row() {
             Column() {
-
+              Text("支出：")
+                .fontColor(Color.Red)
+                .fontSize($r('app.float.title_font_size'))
+                .textAlign(TextAlign.Start)
             }
+            .justifyContent(FlexAlign.Start)
+            .width('50%')
+            .height('100%')
+            .border({
+              width : {
+                right : 1
+              }
+            })
             Column() {
-
+              Text("收入：")
+                .fontColor(Color.Green)
+                .fontSize($r('app.float.title_font_size'))
+                .textAlign(TextAlign.Start)
             }
-        }
-
+            .justifyContent(FlexAlign.Start)
+            .width('50%')
+            .height('100%')
+            .border({
+              width : {
+                left : 1
+              }
+            })
+          }
+          .layoutWeight(5)
         }
       }
       .width('100%')
@@ -96,5 +120,20 @@ struct AccountBookDetails {
 @Component
 struct DataShowBar {
   build() {
+    Column(){
+      Text("这里预期是按照时间呈现的柱状图，虽然也没来得及……")
+        .fontSize(20)
+        .lineHeight(25)
+        .textAlign(TextAlign.Center)
+    }
+    .height('100%')
+    .width('100%')
+    .border({
+      width : {
+        bottom : 2
+      }
+    })
+    .borderStyle(BorderStyle.Dotted)
+    .padding(20)
   }
 }

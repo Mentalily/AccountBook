@@ -1,10 +1,3 @@
-/**
- * 本页也需要完成的是
- * 数据存储
- * 数据传递
- * 点击交互
- * 页面渲染倒是还好
- */
 import { AlertDialog, CustomContentDialog, router } from '@kit.ArkUI'
 
 interface AssetList {
@@ -19,6 +12,7 @@ struct User {
   @State sumAsset : number = 0
   // @State countAsset : number = 0
   @State inputText : string = ''
+  @State inputText2: string = ''
   @State alertMessage : string = ""
   @State showAlert : boolean = false
   @State assets: AssetList[] = [];
@@ -35,6 +29,34 @@ struct User {
         })
     }
   }
+
+  @Builder
+  buildContent2() : void {
+    Column({space : 10}) {
+      TextInput({
+        placeholder : "用户名",
+        text : this.inputText2
+      })
+        .onChange((text: string) =>{
+          this.inputText2 = text
+        })
+    }
+  }
+
+  dialogController2: CustomDialogController = new CustomDialogController({
+    builder: CustomContentDialog({
+      contentBuilder: ()=>{
+        this.buildContent2()
+      },
+      buttons:  [{value : "Cancel", buttonStyle: ButtonStyleMode.NORMAL, action: ()=> {
+        this.inputText2 = ''
+      }}, {value : "Confirm", buttonStyle: ButtonStyleMode.EMPHASIZED, action: () => {
+          this.userName = this.inputText2
+          this.inputText2 = ''
+        }}]
+      })
+
+    })
 
   dialogController: CustomDialogController = new CustomDialogController({
     builder: CustomContentDialog({
@@ -102,6 +124,11 @@ struct User {
             .margin({
               right: $r('app.float.top_navigation_margin')
             })
+            .onClick(()=>{
+              router.pushUrl({
+                url : 'pages/Login'
+              })
+            })
         }
         .width('100%')
         .height($r('app.float.top_navigation_bar_height'))
@@ -136,6 +163,9 @@ struct User {
               .borderRadius(25)
               .margin({
                 top: -15
+              })
+              .onClick(()=>{
+                this.dialogController2.open()
               })
           }
           .width('100%')
