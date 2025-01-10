@@ -3,33 +3,47 @@
  * 数据显示、柱形图的绘制
  */
 
-import { CustomContentDialog, router } from '@kit.ArkUI'
+import {CustomContentDialog, router } from '@kit.ArkUI'
+
+interface AccountBookList {
+  name: string;
+  expense: number;
+  income: number
+}
+
 @Entry
 @Component
 struct AccountBooksPreview {
+
+  @State inputText: string = ''
+  @State books: AccountBookList[] = []
 
   @Builder
   buildContent() : void {
     Column({space : 10}) {
       TextInput({
-        placeholder : "账本名字，也是tag"
+        placeholder : "输入账本名（也即tag）",
+        text : this.inputText
       })
-      Row() {
-        Button("Cancel")
-          .width('30%')
-          .backgroundColor($r('app.color.button_cancel'))
-        Button("Confirm")
-          .width('50%')
-          .backgroundColor($r('app.color.button_ok'))
-      }
-      .width('100%')
-      .justifyContent(FlexAlign.SpaceBetween)
+        .onChange((text: string) =>{
+          this.inputText = text
+        })
     }
   }
 
   dialogController: CustomDialogController = new CustomDialogController({
     builder: CustomContentDialog({
-      contentBuilder: ()=>this.buildContent()
+      contentBuilder: ()=> {
+        this.buildContent()
+      },
+      buttons: [{value : "Cancel", buttonStyle: ButtonStyleMode.NORMAL, action: ()=>{
+        this.inputText = ''
+      }}, {value : "Confirm", buttonStyle: ButtonStyleMode.EMPHASIZED, action: () => {
+
+        this.books.push({name: this.inputText, expense: 0, income: 0})
+        // 清空输入框内容
+        this.inputText = "";
+      }}]
     })
   })
 
@@ -83,28 +97,44 @@ struct AccountBooksPreview {
       .width('100%')
       .layoutWeight(4)
 
-      Column(){
-        Row() {
-          Text('账本：')
-            .fontSize($r('app.float.title_font_size'))
-            .fontWeight(FontWeight.Bold)
-          Image($r('app.media.ic_public_add_norm'))
-            .width($r('app.float.add_icon_width'))
-            .onClick(()=>{
-              this.dialogController.open()
-            })
-        }
-        .width('100%')
-        .height($r('app.float.title_height'))
-        .justifyContent(FlexAlign.SpaceBetween)
-        .padding({
-          left : $r('app.float.title_padding'),
-          right : $r('app.float.title_padding')
-        })
+      Row() {
+        Text('账本：')
+          .fontSize($r('app.float.title_font_size'))
+          .fontWeight(FontWeight.Bold)
+        Image($r('app.media.ic_public_add_norm'))
+          .width($r('app.float.add_icon_width'))
+          .onClick(()=>{
+            this.dialogController.open()
+          })
       }
+      .width('100%')
+      .height($r('app.float.title_height'))
+      .justifyContent(FlexAlign.SpaceBetween)
+      .padding({
+        left : $r('app.float.title_padding'),
+        right : $r('app.float.title_padding')
+      })
+      .backgroundColor(Color.White)
+
+      Scroll(){
+        Column(){
+          if (this.books.length != 0) {
+            ForEach(this.books, (book: AccountBookList) => {
+              AccountBook({
+                bookName: book.name,
+                expense: book.expense,
+                income: book.income
+              })
+            })
+          }
+        }
+        .width('90%')
+      }
+      .backgroundColor(Color.White)
       .layoutWeight(5)
       .width('100%')
-
+      .scrollBar(BarState.Off)
+      .align(Alignment.Top)
 
       // 底部导航栏
       Row() {
@@ -153,18 +183,36 @@ struct AccountBooksPreview {
 }
 
 // 利用Navigation进入账本详情页
-@Preview
+// @Preview
+
 @Component
 struct AccountBook {
+  @Prop bookName: string
+  @Prop expense: number
+  @Prop income: number
+  // @Prop onClick: (event?: ClickEvent) => void
+
   build() {
     Row() {
-      Image($r('app.media.app_icon'))
-        .width(30)
-        .borderRadius(15)
-      Text('账本1')
+      Image($r('app.media.userPic'))
+        .width(40)
+        .borderRadius(20)
+        .margin({
+          right : 20
+        })
+      Text(this.bookName)
         .fontSize($r('app.float.item_font_size'))
+      Blank()
+      Column(){
+        Text("支出：" + this.expense)
+          .fontColor(Color.Red)
+          .fontSize(15)
+        Text("收入：" + this.income)
+          .fontColor(Color.Green)
+          .fontSize(15)
+      }
     }
-    .width('90%')
+    .width('100%')
     .height($r('app.float.item_height'))
     .backgroundColor(Color.White)
     .border({
@@ -175,16 +223,25 @@ struct AccountBook {
       left : $r('app.float.item_padding'),
       right : $r('app.float.item_padding')
     })
-    .justifyContent(FlexAlign.SpaceBetween)
+    .margin({
+      bottom : 5
+    })
+    .onClick(()=>{
+      router.pushUrl({
+        url: 'pages/AccountBookDetails',
+        params: { bookName: this.bookName }
+      })
+    })
   }
 }
 
-@Component
-struct DataShowPie {
-  build() {
-    Column(){
 
-    }
-    // .height()
-  }
-}
+// @Component
+// struct DataShowPie {
+//   build() {
+//     Column(){
+//
+//     }
+//     // .height()
+//   }
+// }

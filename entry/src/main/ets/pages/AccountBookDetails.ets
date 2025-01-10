@@ -1,11 +1,20 @@
-/**
- * 单个账本收支明细显示
- * */
 import { router } from '@kit.ArkUI'
+
+interface RouteParams {
+  bookName: string;
+}
+
 
 @Entry
 @Component
 struct AccountBookDetails {
+  @State bookName: string = '账本示例'
+
+  onPageShow(): void {
+    const params = router.getParams() as RouteParams
+    this.bookName = params.bookName || 'Unknown';
+  }
+
   build() {
     Column(){
       // 顶端导航栏
@@ -16,7 +25,7 @@ struct AccountBookDetails {
           .onClick(()=>{
             router.back()
           })
-        Text("账本1")
+        Text(this.bookName)
           .fontSize($r('app.float.top_navigation_text_fontsize'))
         Image($r('app.media.ic_public_share'))
           .width($r('app.float.navigation_icon_width'))

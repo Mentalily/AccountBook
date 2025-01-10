@@ -1,15 +1,3 @@
-/*
- * 本页需要完成的是环形图的绘制、
- * 参数传入结构体
- * 数据存储到后端
- * 正确渲染明细*/
-
-/*
- * 主要是数据的传递、
- * 数据的存储、
- * 点击交互
- * 环形图的绘制*/
-
 import { AlertDialog, router } from '@kit.ArkUI'
 
 interface TodayExpensesDetails {
@@ -157,7 +145,13 @@ struct Home {
         // 明细显示
         Scroll(){
           Column(){
-            ExpenditureDetails()
+            ForEach(this.todayExpenses, (exp: TodayExpensesDetails) => {
+              ExpenditureDetails({
+                expenditure: exp.detail,
+                tag: exp.tag,
+                expense: exp.expense
+              })
+            })
 
           }
         }
@@ -217,16 +211,19 @@ struct Home {
 @Preview
 @Component
 struct ExpenditureDetails {
+  @Prop expenditure: string
+  @Prop tag: string
+  @Prop expense: number
   build() {
     Row() {
-      Text("早餐")
+      Text(this.expenditure)
         .fontSize(20)
       Row() {
-        Text("#生活")
+        Text("#" + this.tag)
           .fontSize(20)
           .margin({right : 15})
           .fontColor(Color.Orange)
-        Text("-9.0")
+        Text((- this.expense).toString())
           .fontSize(20)
           .fontColor(Color.Red)
       }
@@ -245,6 +242,8 @@ struct ExpenditureDetails {
     })
   }
 }
+
+
 
 class ExpenditureDetailsClass {
   id: string = "";
